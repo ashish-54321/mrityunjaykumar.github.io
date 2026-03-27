@@ -1,0 +1,1737 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Mrityunjay Kumar, PhD</title>
+    <link
+        href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400;0,600;0,700;1,400;1,600&family=Source+Sans+3:ital,wght@0,300;0,400;0,500;0,600;1,300;1,400&family=IBM+Plex+Mono:wght@300;400;500&display=swap"
+        rel="stylesheet">
+    <style>
+        :root {
+            --bg: #faf8f4;
+            --bg-warm: #f3efe6;
+            --bg-card: #fff;
+            --bg-dark: #1a1a2e;
+            --bg-dark-card: #232340;
+            --text: #2c2c3a;
+            --text-soft: #6b6b7b;
+            --text-light: #9a9aab;
+            --accent: #c45d3e;
+            --accent-lt: rgba(196, 93, 62, .08);
+            --accent-h: #d4714f;
+            --teal: #2a7c6f;
+            --teal-lt: rgba(42, 124, 111, .08);
+            --gold: #b8860b;
+            --bdr: rgba(0, 0, 0, .07);
+            --bdr2: rgba(0, 0, 0, .12);
+            --sh1: 0 1px 3px rgba(0, 0, 0, .04), 0 1px 2px rgba(0, 0, 0, .03);
+            --sh2: 0 4px 20px rgba(0, 0, 0, .06), 0 2px 6px rgba(0, 0, 0, .04);
+            --serif: 'Playfair Display', Georgia, serif;
+            --sans: 'Source Sans 3', 'Segoe UI', sans-serif;
+            --mono: 'IBM Plex Mono', monospace;
+            --r: 16px;
+            --rs: 10px
+        }
+
+        *,
+        *::before,
+        *::after {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box
+        }
+
+        html {
+            scroll-behavior: smooth
+        }
+
+        body {
+            font-family: var(--sans);
+            background: var(--bg);
+            color: var(--text);
+            line-height: 1.75;
+            font-weight: 400;
+            overflow-x: hidden;
+            -webkit-font-smoothing: antialiased
+        }
+
+        ::selection {
+            background: var(--accent);
+            color: #fff
+        }
+
+        .scroll-progress {
+            position: fixed;
+            top: 0;
+            left: 0;
+            height: 3px;
+            background: linear-gradient(90deg, var(--accent), var(--teal));
+            z-index: 1000;
+            width: 0%
+        }
+
+        nav {
+            position: fixed;
+            top: 0;
+            left: 0;
+            right: 0;
+            z-index: 100;
+            backdrop-filter: blur(24px) saturate(1.4);
+            background: rgba(250, 248, 244, .85);
+            border-bottom: 1px solid var(--bdr);
+            transition: box-shadow .3s
+        }
+
+        nav.scrolled {
+            box-shadow: var(--sh1)
+        }
+
+        .nav-inner {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 0 3rem;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 64px
+        }
+
+        .nav-links {
+            display: flex;
+            gap: .3rem;
+            list-style: none
+        }
+
+        .nav-links a {
+            color: var(--text-soft);
+            text-decoration: none;
+            font-size: .8rem;
+            font-weight: 500;
+            padding: .45rem .8rem;
+            border-radius: 8px;
+            transition: all .25s
+        }
+
+        .nav-links a:hover {
+            color: var(--accent);
+            background: var(--accent-lt)
+        }
+
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 0 3rem
+        }
+
+        section {
+            padding: 6rem 0;
+            opacity: 0;
+            transform: translateY(24px);
+            transition: opacity .7s ease, transform .7s ease
+        }
+
+        section.visible {
+            opacity: 1;
+            transform: none
+        }
+
+        .hero {
+            min-height: 100vh;
+            display: flex;
+            align-items: center;
+            padding-top: 64px;
+            background: radial-gradient(ellipse 60% 50% at 75% 20%, rgba(196, 93, 62, .06), transparent), radial-gradient(ellipse 50% 40% at 20% 80%, rgba(42, 124, 111, .05), transparent), var(--bg);
+            position: relative;
+            overflow: hidden
+        }
+
+        .hero::after {
+            content: '';
+            position: absolute;
+            right: -100px;
+            top: 10%;
+            width: 500px;
+            height: 500px;
+            border: 1px solid var(--bdr);
+            border-radius: 50%;
+            opacity: .5;
+            animation: fl 20s ease-in-out infinite
+        }
+
+        .hero::before {
+            content: '';
+            position: absolute;
+            right: -50px;
+            top: 15%;
+            width: 400px;
+            height: 400px;
+            border: 1px solid var(--bdr);
+            border-radius: 50%;
+            opacity: .3;
+            animation: fl 15s ease-in-out infinite reverse
+        }
+
+        @keyframes fl {
+
+            0%,
+            100% {
+                transform: translateY(0) rotate(0)
+            }
+
+            50% {
+                transform: translateY(-30px) rotate(5deg)
+            }
+        }
+
+        .hero-grid {
+            display: grid;
+            grid-template-columns: 1fr auto;
+            gap: 4rem;
+            align-items: center;
+            position: relative;
+            z-index: 1
+        }
+
+        .hero-photo {
+            width: 280px;
+            height: 280px;
+            border-radius: 20px;
+            object-fit: cover;
+            border: 4px solid var(--bg-card);
+            box-shadow: var(--sh2)
+        }
+
+        .hero-photo-placeholder {
+            width: 280px;
+            height: 280px;
+            border-radius: 20px;
+            background: linear-gradient(135deg, var(--accent-lt), var(--teal-lt));
+            border: 4px solid var(--bg-card);
+            box-shadow: var(--sh2);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-family: var(--serif);
+            font-size: 5rem;
+            font-weight: 700;
+            color: var(--accent);
+            opacity: .4
+        }
+
+        .hero-overline {
+            font-family: var(--mono);
+            font-size: .72rem;
+            font-weight: 500;
+            color: var(--accent);
+            letter-spacing: .2em;
+            text-transform: uppercase;
+            margin-bottom: 1.5rem;
+            display: flex;
+            align-items: center;
+            gap: .8rem
+        }
+
+        .hero-overline::before {
+            content: '';
+            width: 32px;
+            height: 2px;
+            background: var(--accent);
+            border-radius: 2px
+        }
+
+        .hero h1 {
+            font-family: var(--serif);
+            font-size: clamp(3.2rem, 5.5vw, 5rem);
+            font-weight: 700;
+            line-height: 1.08;
+            letter-spacing: -.035em;
+            margin-bottom: 1.5rem
+        }
+
+        .hero h1 em {
+            font-style: italic;
+            font-weight: 400;
+            color: var(--accent)
+        }
+
+        .hero-subtitle {
+            font-size: 1.15rem;
+            font-weight: 300;
+            color: var(--text-soft);
+            line-height: 1.8;
+            max-width: 540px;
+            margin-bottom: 2.5rem
+        }
+
+        .hero-bottom {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 2rem;
+            margin-top: 2rem
+        }
+
+        .hero-contact {
+            display: flex;
+            flex-wrap: wrap;
+            gap: .75rem;
+            align-content: flex-start
+        }
+
+        .pill {
+            display: inline-flex;
+            align-items: center;
+            gap: .5rem;
+            padding: .55rem 1.3rem;
+            border-radius: 100px;
+            font-size: .82rem;
+            font-weight: 500;
+            text-decoration: none;
+            transition: all .3s
+        }
+
+        .pill svg {
+            width: 15px;
+            height: 15px;
+            flex-shrink: 0
+        }
+
+        .pill-primary {
+            background: var(--accent);
+            color: #fff;
+            box-shadow: 0 2px 12px rgba(196, 93, 62, .25)
+        }
+
+        .pill-primary:hover {
+            background: var(--accent-h);
+            transform: translateY(-1px);
+            box-shadow: 0 4px 16px rgba(196, 93, 62, .35)
+        }
+
+        .pill-outline {
+            background: transparent;
+            color: var(--text);
+            border: 1.5px solid var(--bdr2)
+        }
+
+        .pill-outline:hover {
+            border-color: var(--accent);
+            color: var(--accent);
+            background: var(--accent-lt)
+        }
+
+        .hero-stats {
+            display: flex;
+            flex-direction: column;
+            gap: 1rem
+        }
+
+        .hero-stat {
+            background: var(--bg-card);
+            border: 1px solid var(--bdr);
+            border-radius: var(--r);
+            padding: 1.4rem 1.8rem;
+            display: flex;
+            align-items: center;
+            gap: 1.5rem;
+            box-shadow: var(--sh1);
+            transition: all .35s;
+            position: relative;
+            overflow: hidden;
+            text-decoration: none;
+            color: inherit
+        }
+
+        .hero-stat:hover {
+            box-shadow: var(--sh2);
+            transform: translateY(-3px);
+            border-color: var(--bdr2)
+        }
+
+        .hero-stat::before {
+            content: '';
+            position: absolute;
+            left: 0;
+            top: 0;
+            bottom: 0;
+            width: 4px;
+            border-radius: 0 4px 4px 0
+        }
+
+        .hero-stat:nth-child(1)::before {
+            background: var(--accent)
+        }
+
+        .hero-stat:nth-child(2)::before {
+            background: var(--teal)
+        }
+
+        .stat-num {
+            font-family: var(--serif);
+            font-size: 2.8rem;
+            font-weight: 700;
+            line-height: 1;
+            min-width: 60px
+        }
+
+        .hero-stat:nth-child(1) .stat-num {
+            color: var(--accent)
+        }
+
+        .hero-stat:nth-child(2) .stat-num {
+            color: var(--teal)
+        }
+
+        .stat-info strong {
+            display: block;
+            font-size: .92rem;
+            font-weight: 600;
+            color: var(--text);
+            margin-bottom: .15rem
+        }
+
+        .stat-info span {
+            font-size: .8rem;
+            color: var(--text-light)
+        }
+
+        .sec-header {
+            margin-bottom: 3.5rem
+        }
+
+        .sec-label {
+            font-family: var(--mono);
+            font-size: .7rem;
+            font-weight: 500;
+            color: var(--accent);
+            letter-spacing: .18em;
+            text-transform: uppercase;
+            margin-bottom: .6rem;
+            display: flex;
+            align-items: center;
+            gap: .6rem
+        }
+
+        .sec-label::before {
+            content: '';
+            width: 20px;
+            height: 2px;
+            background: var(--accent);
+            border-radius: 2px
+        }
+
+        .sec-header h2 {
+            font-family: var(--serif);
+            font-size: clamp(2rem, 3.5vw, 2.8rem);
+            font-weight: 700;
+            letter-spacing: -.025em;
+            line-height: 1.15
+        }
+
+        .sec-header p {
+            margin-top: .8rem;
+            color: var(--text-soft);
+            font-size: 1.05rem;
+            max-width: 600px
+        }
+
+        .profile-section {
+            background: var(--bg-warm);
+            border-top: 1px solid var(--bdr);
+            border-bottom: 1px solid var(--bdr)
+        }
+
+        .profile-grid {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 4rem;
+            align-items: start
+        }
+
+        .profile-text {
+            font-size: 1.08rem;
+            color: var(--text-soft);
+            line-height: 1.9
+        }
+
+        .profile-text strong {
+            color: var(--text);
+            font-weight: 600
+        }
+
+        .interests-wrap h3 {
+            font-family: var(--serif);
+            font-size: 1.3rem;
+            margin-bottom: 1.5rem
+        }
+
+        .interest-pills {
+            display: flex;
+            flex-wrap: wrap;
+            gap: .6rem
+        }
+
+        .int-pill {
+            background: var(--bg-card);
+            border: 1px solid var(--bdr);
+            border-radius: 100px;
+            padding: .5rem 1.2rem;
+            font-size: .84rem;
+            font-weight: 500;
+            color: var(--text-soft);
+            transition: all .3s;
+            cursor: default
+        }
+
+        .int-pill:hover {
+            border-color: var(--accent);
+            color: var(--accent);
+            background: var(--accent-lt);
+            transform: translateY(-1px)
+        }
+
+        .lang-row {
+            display: flex;
+            gap: 1rem;
+            margin-top: 2rem
+        }
+
+        .lang-chip {
+            background: var(--bg-card);
+            border: 1px solid var(--bdr);
+            border-radius: var(--rs);
+            padding: 1rem 1.5rem;
+            text-align: center;
+            flex: 1;
+            box-shadow: var(--sh1)
+        }
+
+        .lang-chip strong {
+            display: block;
+            font-size: .95rem;
+            margin-bottom: .2rem
+        }
+
+        .lang-chip span {
+            font-size: .78rem;
+            color: var(--text-light)
+        }
+
+        .exp-list {
+            display: flex;
+            flex-direction: column;
+            gap: 1.5rem
+        }
+
+        .exp-card {
+            background: var(--bg-card);
+            border: 1px solid var(--bdr);
+            border-radius: var(--r);
+            padding: 2.2rem 2.5rem;
+            box-shadow: var(--sh1);
+            transition: all .35s;
+            display: grid;
+            grid-template-columns: 200px 1fr;
+            gap: 2.5rem
+        }
+
+        .exp-card:hover {
+            box-shadow: var(--sh2);
+            border-color: var(--bdr2);
+            transform: translateY(-2px)
+        }
+
+        .exp-date {
+            font-family: var(--mono);
+            font-size: .75rem;
+            font-weight: 500;
+            color: var(--accent);
+            margin-bottom: .6rem
+        }
+
+        .exp-location {
+            font-size: .82rem;
+            color: var(--text-light);
+            line-height: 1.5
+        }
+
+        .exp-body h3 {
+            font-family: var(--serif);
+            font-size: 1.3rem;
+            font-weight: 600;
+            margin-bottom: .3rem;
+            line-height: 1.3
+        }
+
+        .exp-supervisor {
+            font-size: .88rem;
+            color: var(--text-soft);
+            font-style: italic;
+            margin-bottom: 1rem
+        }
+
+        .exp-points {
+            list-style: none
+        }
+
+        .exp-points li {
+            font-size: .9rem;
+            color: var(--text-soft);
+            line-height: 1.7;
+            padding-left: 1.4rem;
+            position: relative;
+            margin-bottom: .6rem
+        }
+
+        .exp-points li::before {
+            content: '';
+            position: absolute;
+            left: 0;
+            top: .7em;
+            width: 6px;
+            height: 6px;
+            border-radius: 50%;
+            background: var(--teal);
+            opacity: .5
+        }
+
+        .edu-row {
+            display: grid;
+            grid-template-columns: repeat(4, 1fr);
+            gap: 1.5rem
+        }
+
+        .edu-card {
+            background: var(--bg-card);
+            border: 1px solid var(--bdr);
+            border-radius: var(--r);
+            padding: 2.2rem 2rem;
+            box-shadow: var(--sh1);
+            position: relative;
+            overflow: hidden;
+            transition: all .35s
+        }
+
+        .edu-card:hover {
+            box-shadow: var(--sh2);
+            transform: translateY(-3px);
+            border-color: var(--bdr2)
+        }
+
+        .edu-card::after {
+            content: '';
+            position: absolute;
+            bottom: 0;
+            left: 0;
+            right: 0;
+            height: 3px
+        }
+
+        .edu-card:nth-child(1)::after {
+            background: var(--accent)
+        }
+
+        .edu-card:nth-child(2)::after {
+            background: var(--teal)
+        }
+
+        .edu-card:nth-child(3)::after {
+            background: var(--gold)
+        }
+
+        .edu-card:nth-child(4)::after {
+            background: #8b5cf6
+        }
+
+        .edu-yr {
+            font-family: var(--serif);
+            font-size: 3.5rem;
+            font-weight: 700;
+            opacity: .06;
+            position: absolute;
+            top: .8rem;
+            right: 1.2rem;
+            line-height: 1
+        }
+
+        .edu-deg {
+            font-family: var(--serif);
+            font-size: 1.05rem;
+            font-weight: 600;
+            margin-bottom: .6rem;
+            line-height: 1.35
+        }
+
+        .edu-inst {
+            font-size: .85rem;
+            color: var(--text-soft);
+            line-height: 1.5
+        }
+
+        .skills-grid {
+            display: grid;
+            grid-template-columns: repeat(2, 1fr);
+            gap: 1.5rem
+        }
+
+        .skill-card {
+            background: var(--bg-card);
+            border: 1px solid var(--bdr);
+            border-radius: var(--r);
+            padding: 2rem;
+            box-shadow: var(--sh1);
+            transition: all .35s
+        }
+
+        .skill-card:hover {
+            box-shadow: var(--sh2);
+            transform: translateY(-2px)
+        }
+
+        .skill-card h3 {
+            font-family: var(--mono);
+            font-size: .72rem;
+            font-weight: 500;
+            letter-spacing: .15em;
+            text-transform: uppercase;
+            margin-bottom: 1.2rem;
+            color: var(--text-light);
+            padding-bottom: .8rem;
+            border-bottom: 1px solid var(--bdr)
+        }
+
+        .skill-items {
+            display: flex;
+            flex-wrap: wrap;
+            gap: .5rem
+        }
+
+        .sk {
+            padding: .4rem 1rem;
+            border-radius: 8px;
+            font-size: .82rem;
+            font-weight: 500;
+            transition: all .25s;
+            cursor: default
+        }
+
+        .sk-r {
+            background: var(--accent-lt);
+            color: var(--accent);
+            border: 1px solid rgba(196, 93, 62, .15)
+        }
+
+        .sk-r:hover {
+            background: rgba(196, 93, 62, .14);
+            border-color: var(--accent)
+        }
+
+        .sk-t {
+            background: var(--teal-lt);
+            color: var(--teal);
+            border: 1px solid rgba(42, 124, 111, .15)
+        }
+
+        .sk-t:hover {
+            background: rgba(42, 124, 111, .14);
+            border-color: var(--teal)
+        }
+
+        .pub-section {
+            background: var(--bg-dark);
+            color: #e8e6e1;
+            border-top: 1px solid rgba(255, 255, 255, .06)
+        }
+
+        .pub-section .sec-label {
+            color: var(--accent-h)
+        }
+
+        .pub-section .sec-label::before {
+            background: var(--accent-h)
+        }
+
+        .pub-section .sec-header h2 {
+            color: #e8e6e1
+        }
+
+        .pub-section .sec-header p {
+            color: rgba(255, 255, 255, .45)
+        }
+
+        .pub-grid {
+            display: flex;
+            flex-direction: column;
+            gap: 1rem;
+            counter-reset: pub
+        }
+
+        .pub {
+            counter-increment: pub;
+            background: var(--bg-dark-card);
+            border: 1px solid rgba(255, 255, 255, .06);
+            border-radius: var(--rs);
+            padding: 1.5rem 1.8rem 1.5rem 4.5rem;
+            position: relative;
+            transition: all .3s;
+            line-height: 1.75;
+            font-size: .88rem;
+            color: rgba(255, 255, 255, .55)
+        }
+
+        .pub:hover {
+            border-color: rgba(196, 93, 62, .25);
+            background: rgba(255, 255, 255, .03);
+            transform: translateX(4px)
+        }
+
+        .pub::before {
+            content: counter(pub, decimal-leading-zero);
+            position: absolute;
+            left: 1.5rem;
+            top: 1.5rem;
+            font-family: var(--serif);
+            font-size: .95rem;
+            font-weight: 700;
+            color: var(--accent-h);
+            opacity: .5
+        }
+
+        .pub .pa {
+            color: rgba(255, 255, 255, .8);
+            font-weight: 500
+        }
+
+        .pub .pj {
+            color: var(--accent-h);
+            font-style: italic
+        }
+
+        .awards-grid {
+            display: flex;
+            flex-direction: column;
+            gap: 1rem
+        }
+
+        .award {
+            background: var(--bg-card);
+            border: 1px solid var(--bdr);
+            border-radius: var(--rs);
+            padding: 1.4rem 2rem;
+            display: flex;
+            align-items: center;
+            gap: 2rem;
+            box-shadow: var(--sh1);
+            transition: all .3s
+        }
+
+        .award:hover {
+            box-shadow: var(--sh2);
+            transform: translateX(4px);
+            border-color: var(--gold)
+        }
+
+        .award-badge {
+            width: 44px;
+            height: 44px;
+            border-radius: 12px;
+            background: linear-gradient(135deg, rgba(184, 134, 11, .1), rgba(184, 134, 11, .05));
+            border: 1px solid rgba(184, 134, 11, .2);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            flex-shrink: 0;
+            font-size: 1.2rem
+        }
+
+        .award-body {
+            flex: 1
+        }
+
+        .award-body strong {
+            display: block;
+            font-size: .95rem;
+            font-weight: 600;
+            margin-bottom: .15rem
+        }
+
+        .award-body span {
+            font-size: .82rem;
+            color: var(--text-light)
+        }
+
+        .award-yr {
+            font-family: var(--mono);
+            font-size: .75rem;
+            font-weight: 500;
+            color: var(--gold);
+            white-space: nowrap
+        }
+
+        .training-section {
+            background: var(--bg-warm);
+            border-top: 1px solid var(--bdr);
+            border-bottom: 1px solid var(--bdr)
+        }
+
+        .training-list {
+            display: flex;
+            flex-direction: column;
+            gap: 1rem
+        }
+
+        .training-item {
+            background: var(--bg-card);
+            border: 1px solid var(--bdr);
+            border-radius: var(--rs);
+            padding: 1.4rem 2rem;
+            display: grid;
+            grid-template-columns: 220px 1fr auto;
+            gap: 2rem;
+            align-items: center;
+            box-shadow: var(--sh1);
+            transition: all .3s
+        }
+
+        .training-item:hover {
+            box-shadow: var(--sh2);
+            transform: translateX(3px);
+            border-color: var(--bdr2)
+        }
+
+        .training-where {
+            font-family: var(--mono);
+            font-size: .78rem;
+            font-weight: 500;
+            color: var(--accent);
+            letter-spacing: .02em
+        }
+
+        .training-body strong {
+            display: block;
+            font-size: .92rem;
+            font-weight: 600;
+            margin-bottom: .2rem;
+            line-height: 1.4
+        }
+
+        .training-body span {
+            font-size: .82rem;
+            color: var(--text-soft)
+        }
+
+        .training-when {
+            font-family: var(--mono);
+            font-size: .72rem;
+            color: var(--text-light);
+            white-space: nowrap
+        }
+
+        .conf-section {
+            background: var(--bg-warm);
+            border-top: 1px solid var(--bdr);
+            border-bottom: 1px solid var(--bdr)
+        }
+
+        .conf-list {
+            display: flex;
+            flex-direction: column;
+            gap: .75rem
+        }
+
+        .conf-item {
+            background: var(--bg-card);
+            border: 1px solid var(--bdr);
+            border-radius: var(--rs);
+            padding: 1.2rem 1.8rem;
+            display: grid;
+            grid-template-columns: 90px 1fr auto;
+            gap: 1.5rem;
+            align-items: center;
+            box-shadow: var(--sh1);
+            transition: all .3s
+        }
+
+        .conf-item:hover {
+            box-shadow: var(--sh2);
+            transform: translateX(3px);
+            border-color: var(--bdr2)
+        }
+
+        .conf-type {
+            font-family: var(--mono);
+            font-size: .68rem;
+            font-weight: 500;
+            letter-spacing: .08em;
+            text-transform: uppercase;
+            padding: .3rem .7rem;
+            border-radius: 6px;
+            text-align: center;
+            white-space: nowrap
+        }
+
+        .conf-type.poster {
+            background: var(--accent-lt);
+            color: var(--accent);
+            border: 1px solid rgba(196, 93, 62, .15)
+        }
+
+        .conf-type.workshop {
+            background: var(--teal-lt);
+            color: var(--teal);
+            border: 1px solid rgba(42, 124, 111, .15)
+        }
+
+        .conf-type.speaker {
+            background: rgba(184, 134, 11, .08);
+            color: var(--gold);
+            border: 1px solid rgba(184, 134, 11, .2)
+        }
+
+        .conf-body strong {
+            display: block;
+            font-size: .9rem;
+            font-weight: 600;
+            margin-bottom: .15rem;
+            line-height: 1.4
+        }
+
+        .conf-body span {
+            font-size: .82rem;
+            color: var(--text-soft)
+        }
+
+        .conf-date {
+            font-family: var(--mono);
+            font-size: .72rem;
+            color: var(--text-light);
+            white-space: nowrap
+        }
+
+        footer {
+            background: var(--bg-dark);
+            color: rgba(255, 255, 255, .5);
+            padding: 4rem 0;
+            text-align: center
+        }
+
+        .footer-name {
+            font-family: var(--serif);
+            font-size: 1.6rem;
+            color: #e8e6e1;
+            font-weight: 600;
+            margin-bottom: .5rem
+        }
+
+        .footer-tagline {
+            font-size: .88rem;
+            color: rgba(255, 255, 255, .35);
+            margin-bottom: 2rem
+        }
+
+        .footer-links {
+            display: flex;
+            justify-content: center;
+            gap: 1.5rem
+        }
+
+        .footer-links a {
+            color: rgba(255, 255, 255, .4);
+            text-decoration: none;
+            font-size: .85rem;
+            transition: color .3s
+        }
+
+        .footer-links a:hover {
+            color: var(--accent-h)
+        }
+
+        .footer-copy {
+            margin-top: 2rem;
+            font-size: .75rem;
+            color: rgba(255, 255, 255, .2)
+        }
+
+        @keyframes fadeUp {
+            from {
+                opacity: 0;
+                transform: translateY(20px)
+            }
+
+            to {
+                opacity: 1;
+                transform: translateY(0)
+            }
+        }
+
+        .anim {
+            opacity: 0;
+            animation: fadeUp .7s ease forwards
+        }
+
+        .anim-d1 {
+            animation-delay: .15s
+        }
+
+        .anim-d2 {
+            animation-delay: .3s
+        }
+
+        .anim-d3 {
+            animation-delay: .45s
+        }
+
+        .anim-d4 {
+            animation-delay: .6s
+        }
+
+        @media(max-width:900px) {
+
+            .container,
+            .nav-inner {
+                padding: 0 1.5rem
+            }
+
+            .hero-grid {
+                grid-template-columns: 1fr;
+                text-align: center
+            }
+
+            .hero-photo,
+            .hero-photo-placeholder {
+                width: 180px;
+                height: 180px;
+                margin: 0 auto 1.5rem
+            }
+
+            .hero-overline {
+                justify-content: center
+            }
+
+            .hero-overline::before {
+                display: none
+            }
+
+            .hero-bottom {
+                grid-template-columns: 1fr
+            }
+
+            .hero-contact {
+                justify-content: center
+            }
+
+            .profile-grid {
+                grid-template-columns: 1fr;
+                gap: 2rem
+            }
+
+            .edu-row {
+                grid-template-columns: repeat(2, 1fr)
+            }
+
+            .skills-grid {
+                grid-template-columns: 1fr
+            }
+
+            .exp-card,
+            .training-item,
+            .conf-item {
+                grid-template-columns: 1fr;
+                gap: .5rem
+            }
+
+            section {
+                padding: 4rem 0
+            }
+
+            .nav-links a {
+                padding: .45rem .5rem;
+                font-size: .72rem
+            }
+        }
+
+        @media(max-width:600px) {
+            .nav-links {
+                display: none
+            }
+
+            .hero h1 {
+                font-size: 2.8rem
+            }
+
+            .hero-contact,
+            .lang-row {
+                flex-direction: column
+            }
+
+            .award {
+                flex-direction: column;
+                text-align: center;
+                gap: 1rem
+            }
+
+            .edu-row {
+                grid-template-columns: 1fr
+            }
+        }
+    </style>
+</head>
+
+<body>
+    <div class="scroll-progress" id="sp"></div>
+    <nav id="mn">
+        <div class="nav-inner">
+            <ul class="nav-links">
+                <li><a href="#about">About</a></li>
+                <li><a href="#experience">Experience</a></li>
+                <li><a href="#education">Education</a></li>
+                <li><a href="#skills">Skills</a></li>
+                <li><a href="#publications">Publications</a></li>
+                <li><a href="#awards">Awards</a></li>
+                <li><a href="#certificates">Certificates</a></li>
+                <li><a href="#training">Training</a></li>
+                <li><a href="#conferences">Conferences</a></li>
+            </ul>
+        </div>
+    </nav>
+
+    <!-- HERO -->
+    <section class="hero visible" style="opacity:1;transform:none">
+        <div class="container">
+            <div class="hero-grid">
+                <div>
+                    <div class="hero-overline anim">Computational Biology &amp; Data Science</div>
+                    <h1 class="anim anim-d1">Mrityunjay<br>Kumar, <em>PhD.</em></h1>
+                    <p class="hero-subtitle anim anim-d2">Designing advanced AI-enabled metabolic modeling platforms
+                        that convert complex, high-dimensional biological datasets into meaningful insights
+                        for therapeutic discovery, by integrating multi-omics data, genome-scale metabolic networks,
+                        and deep learning approaches to model disease progression and identify targeted interventions.
+                    </p>
+                </div>
+                <img class="hero-photo anim anim-d2" alt="Mrityunjay Kumar"
+                    src="https://res.cloudinary.com/dchofbded/image/upload/v1747049492/2_i5egsi.jpg">
+            </div>
+            <div class="hero-bottom anim anim-d3">
+                <div class="hero-contact">
+                    <a class="pill pill-primary" href="mailto:MrityunjayKumarbioinfo@gmail.com">
+                        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                            <rect x="2" y="4" width="20" height="16" rx="2" />
+                            <path d="M22 4L12 13 2 4" />
+                        </svg>Get in Touch</a>
+                    <a class="pill pill-outline" href="#">
+                        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                            <path d="M21 10c0 7-9 13-9 13s-9-6-9-13a9 9 0 0118 0z" />
+                            <circle cx="12" cy="10" r="3" />
+                        </svg>India</a>
+                </div>
+                <div class="hero-stats">
+                    <a href="https://scholar.google.com/citations?user=h5T5KnEAAAAJ&hl=en" target="_blank"
+                        class="hero-stat"
+                        style="flex-direction:column;align-items:stretch;gap:.8rem;padding:1.4rem 1.8rem">
+                        <div style="display:flex;gap:1.5rem;flex-wrap:wrap">
+                            <div><span
+                                    style="font-family:var(--serif);font-size:1.4rem;font-weight:700;color:var(--accent)">12</span><span
+                                    style="font-size:.72rem;color:var(--text-light);margin-left:.3rem">Total
+                                    Citations</span></div>
+                            <div><span
+                                    style="font-family:var(--serif);font-size:1.4rem;font-weight:700;color:var(--accent)">4</span><span
+                                    style="font-size:.72rem;color:var(--text-light);margin-left:.3rem">Publications</span>
+                            </div>
+                            <div><span
+                                    style="font-family:var(--serif);font-size:1.4rem;font-weight:700;color:var(--accent)">5</span><span
+                                    style="font-size:.72rem;color:var(--text-light);margin-left:.3rem">h-index</span>
+                            </div>
+                            <div><span
+                                    style="font-family:var(--serif);font-size:1.4rem;font-weight:700;color:var(--accent)">3</span><span
+                                    style="font-size:.72rem;color:var(--text-light);margin-left:.3rem">i10-index</span>
+                            </div>
+                        </div>
+                        <div style="display:flex;align-items:flex-end;gap:3px;height:36px;padding-top:.3rem"
+                            title="Citations per year (2012-2026)">
+                            <div style="flex:1;background:rgba(196,93,62,.2);border-radius:2px 2px 0 0;height:3%"></div>
+                            <div style="flex:1;background:rgba(196,93,62,.2);border-radius:2px 2px 0 0;height:3%"></div>
+                            <div style="flex:1;background:rgba(196,93,62,.25);border-radius:2px 2px 0 0;height:8%">
+                            </div>
+                            <div style="flex:1;background:rgba(196,93,62,.2);border-radius:2px 2px 0 0;height:3%"></div>
+                            <div style="flex:1;background:rgba(196,93,62,.25);border-radius:2px 2px 0 0;height:6%">
+                            </div>
+                            <div style="flex:1;background:rgba(196,93,62,.4);border-radius:2px 2px 0 0;height:35%">
+                            </div>
+                            <div style="flex:1;background:rgba(196,93,62,.35);border-radius:2px 2px 0 0;height:20%">
+                            </div>
+                            <div style="flex:1;background:rgba(196,93,62,.4);border-radius:2px 2px 0 0;height:35%">
+                            </div>
+                            <div style="flex:1;background:rgba(196,93,62,.35);border-radius:2px 2px 0 0;height:18%">
+                            </div>
+                            <div style="flex:1;background:rgba(196,93,62,.35);border-radius:2px 2px 0 0;height:20%">
+                            </div>
+                            <div style="flex:1;background:rgba(196,93,62,.6);border-radius:2px 2px 0 0;height:55%">
+                            </div>
+                            <div style="flex:1;background:rgba(196,93,62,.8);border-radius:2px 2px 0 0;height:75%">
+                            </div>
+                            <div style="flex:1;background:var(--accent);border-radius:2px 2px 0 0;height:100%"></div>
+                            <div style="flex:1;background:var(--accent);border-radius:2px 2px 0 0;height:90%"></div>
+                            <div style="flex:1;background:rgba(196,93,62,.5);border-radius:2px 2px 0 0;height:40%">
+                            </div>
+                        </div>
+                        <div
+                            style="display:flex;justify-content:space-between;font-family:var(--mono);font-size:.55rem;color:var(--text-light);margin-top:2px">
+                            <span>2020</span><span>2026</span>
+                        </div>
+                    </a>
+                    <a href="#experience" class="hero-stat">
+                        <div class="stat-num">6+</div>
+                        <div class="stat-info"><strong>Years of Research</strong><span>Systems Biology | Computational
+                                Biology | Drug Repurposing</span></div>
+                    </a>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- ABOUT -->
+    <section id="about" class="profile-section">
+        <div class="container">
+            <div class="sec-header">
+                <div class="sec-label">01 — About</div>
+                <h2>Profile</h2>
+            </div>
+            <div class="profile-grid">
+                <p class="profile-text">A skilled <strong>computational biologist</strong> and <strong>systems
+                        biologist</strong> with extensive expertise in <strong>multi-omics data analysis</strong>,
+                    genome-scale metabolic modeling, drug discovery, and artificial intelligence-driven approaches.
+                    Experienced in elucidating complex biological systems, identifying potential
+                    <strong>therapeutic targets</strong>, and advancing drug development through predictive
+                    and integrative modeling frameworks. Demonstrates strong collaborative capabilities and a commitment
+                    to leveraging <strong>data-driven methodologies</strong> to address critical challenges in global
+                    health.
+                </p>
+                <div class="interests-wrap">
+                    <h3>Research Interests</h3>
+                    <div class="interest-pills">
+                        <span class="int-pill">Artificial Intelligence</span>
+                        <span class="int-pill">Big Data Analytics</span>
+                        <span class="int-pill">Cheminformatics</span>
+                        <span class="int-pill">Drug Discovery &amp; Repurposing</span>
+                        <span class="int-pill">Metabolic Modeling</span>
+                        <span class="int-pill">Microbial Interactions</span>
+                        <span class="int-pill">Multilevel Data Integration</span>
+                        <span class="int-pill">Omics Data Science</span>
+                        <span class="int-pill">Systems Biology</span>
+                    </div>
+                    <div class="lang-row">
+                        <div class="lang-chip"><strong>English</strong><span>Fluent</span></div>
+                        <div class="lang-chip"><strong>Hindi</strong><span>Native</span></div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- EXPERIENCE -->
+    <section id="experience">
+        <div class="container">
+            <div class="sec-header">
+                <div class="sec-label">02 — Career</div>
+                <h2>Research Experience</h2>
+                <p>Over 6 years advancing computational biology from SARS-CoV-2 drug discovery to tuberculosis drug
+                    repurposing.</p>
+            </div>
+            <div class="exp-list">
+
+                <div class="exp-card">
+                    <div class="exp-meta">
+                        <div class="exp-date">2025</div>
+                        <div class="exp-location">AIIMS New Delhi, India</div>
+                    </div>
+                    <div class="exp-body">
+                        <h3>Senior Research Fellow</h3>
+                        <div class="exp-supervisor">Supervisor: Vishesh Jain, MBBS/MD</div>
+                        <ul class="exp-points">
+                            <li>Role of Urinary Prohibitin and other Biomarkers at Diagnosis in Children with Favourable
+                                Histology Wilms Tumor in Predicting Tumor Response and Risk of Recurrence (Project Code:
+                                DHR/1350).</li>
+                        </ul>
+                    </div>
+                </div>
+
+                <div class="exp-card">
+                    <div class="exp-meta">
+                        <div class="exp-date">2023 — 2026</div>
+                        <div class="exp-location">MRIIRS, Faridabad, India</div>
+                    </div>
+                    <div class="exp-body">
+                        <h3>Research Assistant (Doctoral)</h3>
+                        <div class="exp-supervisor">Supervisors: Kanchan Bhardwaj, Ph.D. &amp; Mirza Sarwar Baig, Ph.D.
+                        </div>
+                        <ul class="exp-points">
+                            <li>Created a predictive algorithm using Network Based Inference (NBI) to predict repurposed
+                                drugs against <em>SARS-CoV-2</em>.</li>
+                            <li>Identified regulatory mechanisms as potential drug targets against SARS-CoV-2.</li>
+                        </ul>
+                    </div>
+                </div>
+
+                <div class="exp-card">
+                    <div class="exp-meta">
+                        <div class="exp-date">2022 — 2023</div>
+                        <div class="exp-location">Jamia Hamdard, New Delhi</div>
+                    </div>
+                    <div class="exp-body">
+                        <h3>Project Assistant</h3>
+                        <div class="exp-supervisor">Supervisor: Sonam Grover, Ph.D.</div>
+                        <ul class="exp-points">
+                            <li>Drug Repurposing against <em>Mycobacterium tuberculosis</em> Rv3378c protein.</li>
+                            <li>Cheminformatics &amp; pharmacology methods to screen compound space for anti-TB
+                                molecules.</li>
+                        </ul>
+                    </div>
+                </div>
+
+            </div>
+        </div>
+    </section>
+
+    <!-- EDUCATION -->
+    <section id="education">
+        <div class="container">
+            <div class="sec-header">
+                <div class="sec-label">03 — Education</div>
+                <h2>Academic Background</h2>
+            </div>
+            <div class="edu-row">
+                <div class="edu-card">
+                    <div class="edu-yr">PhD</div>
+                    <div class="edu-deg">Ph.D. in Biological Sciences</div>
+                    <div class="edu-inst">MRIIRS – School of Engineering &amp; Technology, India</div>
+                </div>
+                <div class="edu-card">
+                    <div class="edu-yr">MSc</div>
+                    <div class="edu-deg">M.Sc. in Biomedical Science</div>
+                    <div class="edu-inst">Jamia Hamdard University, New Delhi, India</div>
+                </div>
+                <div class="edu-card">
+                    <div class="edu-yr">BSc</div>
+                    <div class="edu-deg">B.Sc. in Life Science</div>
+                    <div class="edu-inst">Delhi University, New Delhi, India</div>
+                </div>
+                <div class="edu-card">
+                    <div class="edu-yr">Dip</div>
+                    <div class="edu-deg">Diploma in Pharmacy</div>
+                    <div class="edu-inst">Bhagalpur University</div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- SKILLS -->
+    <section id="skills">
+        <div class="container">
+            <div class="sec-header">
+                <div class="sec-label">04 — Toolkit</div>
+                <h2>Skills &amp; Expertise</h2>
+            </div>
+            <div class="skills-grid">
+                <div class="skill-card">
+                    <h3>Programming &amp; OS</h3>
+                    <div class="skill-items">
+                        <span class="sk sk-r">Python</span>
+                        <span class="sk sk-r">R</span>
+                        <span class="sk sk-r">MATLAB</span>
+                        <span class="sk sk-r">Linux</span>
+                        <span class="sk sk-r">Windows</span>
+                    </div>
+                </div>
+                <div class="skill-card">
+                    <h3>Bioinformatics</h3>
+                    <div class="skill-items">
+                        <span class="sk sk-t">Multi-omics Data Analysis and Integration</span>
+                        <span class="sk sk-t">NGS Processing</span>
+                    </div>
+                </div>
+                <div class="skill-card">
+                    <h3>Metabolic Modeling</h3>
+                    <div class="skill-items">
+                        <span class="sk sk-t">COBRA Toolbox</span>
+                        <span class="sk sk-t">COBRApy</span>
+                        <span class="sk sk-t">Omics Data Integration</span>
+                        <span class="sk sk-t">AI/ML Layering</span>
+                    </div>
+                </div>
+                <div class="skill-card">
+                    <h3>AI / Machine Learning</h3>
+                    <div class="skill-items">
+                        <span class="sk sk-r">PyTorch</span>
+                        <span class="sk sk-r">TensorFlow</span>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- PUBLICATIONS -->
+    <section id="publications" class="pub-section">
+        <div class="container">
+            <div class="sec-header">
+                <div class="sec-label">05 — Research Output</div>
+                <h2>Publications</h2>
+                <p>Peer-reviewed journal articles focused on antivirals, drug repurposing, and computational biology.
+                </p>
+            </div>
+            <div class="pub-grid">
+                <div class="pub">
+                    <span class="pa">Mrityunjay Kumar, Mirza Sarwar Baig, Kanchan Bhardwaj et al.</span>
+                    Advancements in the development of antivirals against SARS-Coronavirus.
+                    <span class="pj">Frontiers in Pharmacology.</span>
+                </div>
+                <div class="pub">
+                    <span class="pa">Mrityunjay Kumar et al.</span>
+                    Machine Learning based pharmacophore modelling and ADMET Profiling of potent inhibitors against
+                    endoribonuclease Nsp15 of SARS-COV-2.
+                    <span class="pj">Journal of Computational Biology.</span>
+                </div>
+                <div class="pub">
+                    <span class="pa">Mrityunjay Kumar et al.</span>
+                    HMPV is a silent threat to human health.
+                    <span class="pj">Research Article.</span>
+                </div>
+                <div class="pub">
+                    <span class="pa">Mrityunjay Kumar et al.</span>
+                    High-Throughput screening, pharmacophore modelling, and ADMET analysis of potent inhibitors against
+                    SARS-CoV-2 Nsp15 Antiviral therapeutics.
+                    <span class="pj">Antiviral Research.</span>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- AWARDS -->
+    <section id="awards">
+        <div class="container">
+            <div class="sec-header">
+                <div class="sec-label">06 — Recognition</div>
+                <h2>Honors &amp; Awards</h2>
+            </div>
+            <div class="awards-grid">
+                <div class="award">
+                    <div class="award-badge">🏆</div>
+                    <div class="award-body">
+                        <strong>Senior Research Fellowship</strong>
+                        <span>Awarded by AIIMS New Delhi</span>
+                    </div>
+                    <div class="award-yr">2025</div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- CERTIFICATES -->
+    <section id="certificates">
+        <div class="container">
+            <div class="sec-header">
+                <div class="sec-label">07 — Certifications</div>
+                <h2>Professional Certificates</h2>
+            </div>
+            <div class="awards-grid">
+                <div class="award" style="text-decoration:none;color:inherit">
+                    <div class="award-badge"
+                        style="background:linear-gradient(135deg,rgba(196,93,62,.1),rgba(196,93,62,.05));border-color:rgba(196,93,62,.2)">
+                        🧠</div>
+                    <div class="award-body">
+                        <strong>Deep Learning Specialization</strong>
+                        <span>DeepLearning.AI · 5 Courses — Neural Networks, Hyperparameter Tuning, ML Projects, CNNs,
+                            Sequence Models</span>
+                    </div>
+                    <div class="award-yr">Mar 2026</div>
+                </div>
+                <div class="award" style="text-decoration:none;color:inherit">
+                    <div class="award-badge"
+                        style="background:linear-gradient(135deg,rgba(42,124,111,.1),rgba(42,124,111,.05));border-color:rgba(42,124,111,.2)">
+                        💻</div>
+                    <div class="award-body">
+                        <strong>AI Python for Beginners</strong>
+                        <span>DeepLearning.AI · Coursera</span>
+                    </div>
+                    <div class="award-yr">Feb 2026</div>
+                </div>
+                <div class="award" style="text-decoration:none;color:inherit">
+                    <div class="award-badge"
+                        style="background:linear-gradient(135deg,rgba(196,93,62,.1),rgba(196,93,62,.05));border-color:rgba(196,93,62,.2)">
+                        🤖</div>
+                    <div class="award-body">
+                        <strong>Neural Networks and Deep Learning</strong>
+                        <span>DeepLearning.AI · Coursera</span>
+                    </div>
+                    <div class="award-yr">Jul 2024</div>
+                </div>
+                <div class="award" style="text-decoration:none;color:inherit">
+                    <div class="award-badge"
+                        style="background:linear-gradient(135deg,rgba(42,124,111,.1),rgba(42,124,111,.05));border-color:rgba(42,124,111,.2)">
+                        📊</div>
+                    <div class="award-body">
+                        <strong>Introduction to Big Data</strong>
+                        <span>UC San Diego · Coursera</span>
+                    </div>
+                    <div class="award-yr">Oct 2024</div>
+                </div>
+                <div class="award" style="text-decoration:none;color:inherit">
+                    <div class="award-badge"
+                        style="background:linear-gradient(135deg,rgba(42,124,111,.1),rgba(42,124,111,.05));border-color:rgba(42,124,111,.2)">
+                        🔧</div>
+                    <div class="award-body">
+                        <strong>The Data Scientist's Toolbox</strong>
+                        <span>Johns Hopkins University · Coursera</span>
+                    </div>
+                    <div class="award-yr">Jun 2016</div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- TRAINING -->
+    <section id="training" class="training-section">
+        <div class="container">
+            <div class="sec-header">
+                <div class="sec-label">08 — Training</div>
+                <h2>Research Training &amp; Workshops</h2>
+            </div>
+            <div class="training-list">
+                <div class="training-item">
+                    <div class="training-where">Jamia Hamdard, New Delhi</div>
+                    <div class="training-body">
+                        <strong>Poster Presentation — Drug Repurposing for SARS-Coronavirus</strong>
+                        <span>Convention Centre, Jamia Hamdard</span>
+                    </div>
+                    <div class="training-when">18 Feb 2025</div>
+                </div>
+                <div class="training-item">
+                    <div class="training-where">Online / LinkedIn Learning</div>
+                    <div class="training-body">
+                        <strong>Academic Research Foundation — Quantitative Methods</strong>
+                        <span>Research Methodologies for Science, Management and Engineering Projects</span>
+                    </div>
+                    <div class="training-when">30 Aug 2024</div>
+                </div>
+                <div class="training-item">
+                    <div class="training-where">Online / LinkedIn Learning</div>
+                    <div class="training-body">
+                        <strong>How to Research and Write Using Generative AI Tools</strong>
+                        <span>Online Workshop</span>
+                    </div>
+                    <div class="training-when">30 Aug 2024</div>
+                </div>
+                <div class="training-item">
+                    <div class="training-where">Online / LinkedIn Learning</div>
+                    <div class="training-body">
+                        <strong>SPSS Statistics Essential Training</strong>
+                        <span>Online Workshop</span>
+                    </div>
+                    <div class="training-when">30 Aug 2024</div>
+                </div>
+                <div class="training-item">
+                    <div class="training-where">Online</div>
+                    <div class="training-body">
+                        <strong>International Bioinformatics Data Science With R</strong>
+                        <span>Online Course</span>
+                    </div>
+                    <div class="training-when">20 Apr — 12 May 2024</div>
+                </div>
+                <div class="training-item">
+                    <div class="training-where">Hackathon</div>
+                    <div class="training-body">
+                        <strong>Climate Knowledge Hunt Hackathon</strong>
+                        <span>Competitive Data Hackathon</span>
+                    </div>
+                    <div class="training-when">26–27 Feb 2024</div>
+                </div>
+                <div class="training-item">
+                    <div class="training-where">Workshop</div>
+                    <div class="training-body">
+                        <strong>Workshop on Entrepreneurship Development of Rural Women</strong>
+                        <span>Under DAY-NRLM in Haryana</span>
+                    </div>
+                    <div class="training-when">7 Mar 2024</div>
+                </div>
+                <div class="training-item">
+                    <div class="training-where">INNOSKILL 2023</div>
+                    <div class="training-body">
+                        <strong>INNOSKILL 2023</strong>
+                        <span>Innovation and Skills Development Workshop</span>
+                    </div>
+                    <div class="training-when">12–13 Apr 2023</div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- CONFERENCES -->
+    <section id="conferences" class="conf-section">
+        <div class="container">
+            <div class="sec-header">
+                <div class="sec-label">09 — Conferences</div>
+                <h2>Workshops &amp; Conferences</h2>
+            </div>
+            <div class="conf-list">
+                <div class="conf-item">
+                    <div class="conf-type poster">Poster</div>
+                    <div class="conf-body">
+                        <strong>Drug Repurposing for SARS-Coronavirus</strong>
+                        <span>Convention Centre, Jamia Hamdard, New Delhi</span>
+                    </div>
+                    <div class="conf-date">Feb 2025</div>
+                </div>
+                <div class="conf-item">
+                    <div class="conf-type workshop">Workshop</div>
+                    <div class="conf-body">
+                        <strong>International Bioinformatics Data Science With R</strong>
+                        <span>Online International Workshop</span>
+                    </div>
+                    <div class="conf-date">Apr–May 2024</div>
+                </div>
+                <div class="conf-item">
+                    <div class="conf-type workshop">Hackathon</div>
+                    <div class="conf-body">
+                        <strong>Climate Knowledge Hunt Hackathon</strong>
+                        <span>Competitive Research Hackathon</span>
+                    </div>
+                    <div class="conf-date">Feb 2024</div>
+                </div>
+                <div class="conf-item">
+                    <div class="conf-type workshop">Workshop</div>
+                    <div class="conf-body">
+                        <strong>INNOSKILL 2023</strong>
+                        <span>Innovation &amp; Skills Development Program</span>
+                    </div>
+                    <div class="conf-date">Apr 2023</div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <footer>
+        <div class="container">
+            <div class="footer-name">Mrityunjay Kumar, PhD.</div>
+            <div class="footer-tagline">Computational Biologist · Data Scientist · India</div>
+            <div class="footer-links">
+                <a href="https://www.linkedin.com/in/MrityunjayKumar/" target="_blank">LinkedIn</a>
+                <a href="https://loop.frontiersin.org/people/2945360" target="_blank">Frontiers Loop</a>
+            </div>
+            <div class="footer-copy">&copy; 2025 Mrityunjay Kumar. All rights reserved.</div>
+        </div>
+    </footer>
+
+    <script>
+        window.addEventListener('scroll', function () {
+            var h = document.documentElement.scrollHeight - window.innerHeight;
+            document.getElementById('sp').style.width = (window.scrollY / h * 100) + '%';
+            document.getElementById('mn').classList.toggle('scrolled', window.scrollY > 20);
+        });
+        var obs = new IntersectionObserver(function (entries) {
+            entries.forEach(function (e) { if (e.isIntersecting) e.target.classList.add('visible'); });
+        }, { threshold: 0.08 });
+        document.querySelectorAll('section:not(.hero)').forEach(function (s) { obs.observe(s); });
+    </script>
+</body>
+
+</html>
